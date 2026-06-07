@@ -1,0 +1,120 @@
+/public_html/                          ← корень сайта (Бегет)
+│
+├── index.php                          ← единственная точка входа фронтенда
+├── styles.css                         ← визуал (не трогаем)
+├── .htaccess                          ← правила роутинга
+│
+├── /api/                              ← Backend API
+│   ├── index.php                      ← API Router (единая точка)
+│   ├── /core/                         ← Ядро системы
+│   │   ├── CQLite.php                 ← класс БД (уже написан)
+│   │   ├── Router.php                 ← роутер запросов
+│   │   ├── Auth.php                   ← авторизация / API ключи
+│   │   ├── Response.php               ← единый формат ответов
+│   │   ├── Request.php                ← парсинг входящих запросов
+│   │   ├── Logger.php                 ← логирование в БД
+│   │   └── Validator.php              ← валидация данных
+│   │
+│   ├── /modules/                      ← Модули (26 штук)
+│   │   ├── OrdersModule.php
+│   │   ├── FinanceModule.php
+│   │   ├── ClientsModule.php
+│   │   ├── WarehouseModule.php
+│   │   ├── StaffModule.php
+│   │   ├── SalaryModule.php
+│   │   ├── ShiftsModule.php
+│   │   ├── NotesModule.php
+│   │   ├── CalendarModule.php
+│   │   ├── DebtsModule.php
+│   │   ├── SettingsModule.php
+│   │   ├── AnalyticsModule.php
+│   │   ├── BriefsModule.php
+│   │   ├── ChecklistModule.php
+│   │   ├── CalculatorModule.php
+│   │   ├── PricelistModule.php
+│   │   ├── TemplatesModule.php
+│   │   ├── StampsModule.php
+│   │   ├── SizeguideModule.php
+│   │   ├── DeliveryModule.php
+│   │   ├── LayoutsModule.php
+│   │   ├── SavingsModule.php
+│   │   ├── TimerModule.php
+│   │   ├── QueueModule.php
+│   │   ├── WebOrdersModule.php
+│   │   └── BankAccountModule.php
+│   │
+│   ├── /integrations/                 ← Интеграторы (API агрегатор)
+│   │   ├── IntegrationManager.php     ← менеджер всех интеграций
+│   │   ├── /messengers/
+│   │   │   ├── TelegramIntegration.php
+│   │   │   ├── MaxIntegration.php     ← МАКс (Артемий)
+│   │   │   └── VkIntegration.php
+│   │   ├── /bots/
+│   │   │   ├── ArtemiyBot.php         ← клиентский бот МАКс
+│   │   │   └── VkBot.php              ← клиентский бот ВК
+│   │   ├── /payments/
+│   │   │   ├── SberbankPos.php
+│   │   │   ├── TinkoffPos.php
+│   │   │   ├── OzonAcquiring.php
+│   │   │   └── SbpPayment.php
+│   │   └── /marketplace/
+│   │       ├── AquamanVk.php          ← приём заказов ВК
+│   │       └── AquastoreVk.php
+│   │
+│   ├── /webhooks/                     ← Входящие вебхуки
+│   │   ├── telegram.php
+│   │   ├── vk.php
+│   │   ├── max.php
+│   │   ├── ozon_acquiring.php
+│   │   └── weborders.php              ← заказы с сайта
+│   │
+│   ├── /parsers/                      ← Парсеры документов
+│   │   ├── DocumentParser.php         ← PDF/Word/Excel
+│   │   ├── ImageParser.php            ← размеры/DPI изображений
+│   │   └── PriceParser.php            ← парсинг прайсов
+│   │
+│   └── /docs/                         ← Документация API
+│       ├── index.php                  ← Swagger UI
+│       └── openapi.json               ← OpenAPI 3.0 спецификация
+│
+├── /admin/                            ← Админка
+│   ├── index.php                      ← вход в админку
+│   ├── dashboard.php                  ← управление системой
+│   ├── modules.php                    ← управление модулями
+│   ├── integrations.php               ← управление интеграциями
+│   ├── users.php                      ← пользователи и права
+│   ├── logs.php                       ← просмотр логов
+│   ├── migration.php                  ← миграция данных
+│   └── /assets/
+│       ├── admin.css
+│       └── admin.js
+│
+├── /bot/                              ← Боты (текущая папка)
+│   ├── artemiy.php                    ← МАКс бот webhook
+│   ├── vk.php                         ← VK бот webhook
+│   ├── crm_notify.php                 ← уведомления владельцу
+│   └── /handlers/
+│       ├── ArtemiyHandler.php
+│       └── VkHandler.php
+│
+├── /data/                             ← Данные (вне public)
+│   ├── printcrm.sqlite                ← основная БД
+│   ├── printcrm_data.json             ← старая БД (для миграции)
+│   ├── /backups/                      ← автобэкапы
+│   ├── /uploads/                      ← загруженные файлы
+│   └── /logs/
+│       ├── api.log
+│       ├── bot.log
+│       └── error.log
+│
+└── /js/                               ← Фронтенд JS (модульно)
+    ├── app.js                         ← ядро (не трогаем)
+    ├── modules.js                     ← текущий (рефакторим)
+    ├── fix_modal.js                   ← текущий (не трогаем)
+    ├── /api/
+    │   └── client.js                  ← новый API клиент
+    └── /modules/                      ← JS модули отдельно
+        ├── orders.js
+        ├── finance.js
+        ├── warehouse.js
+        └── ...
